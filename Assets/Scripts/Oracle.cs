@@ -13,6 +13,7 @@ public class Oracle : SerializedMonoBehaviour
    
 
     private readonly string fileName = "betaTestTwo";
+    private readonly string saveExtension = "beta";
 
     //public List<int> skillAutoAssignmentList = new();
     public bool Loaded;
@@ -106,7 +107,7 @@ public class Oracle : SerializedMonoBehaviour
 
     public void WipeAllData()
     {
-        File.Delete(Application.persistentDataPath + "/" + fileName + ".idsOdin");
+        File.Delete(Application.persistentDataPath + "/" + fileName + saveExtension);
 #if UNITY_IOS || UNITY_ANDROID
         SceneManager.LoadScene(Screen.width > Screen.height ? 2 : 1);
 #else
@@ -117,7 +118,10 @@ public class Oracle : SerializedMonoBehaviour
     [ContextMenu("WipeSaveData")]
     public void WipeSaveData()
     {
-        saveData = new SaveData();
+        saveData = new SaveData()
+        {
+            level1 = new Level1()
+        };
     }
 
 
@@ -125,7 +129,7 @@ public class Oracle : SerializedMonoBehaviour
     public void Save()
     {
         saveData.dateQuitString = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
-        SaveState(Application.persistentDataPath + "/" + fileName + ".beta");
+        SaveState(Application.persistentDataPath + "/" + fileName + saveExtension);
     }
 
     public void SaveState(string filePath)
@@ -139,9 +143,9 @@ public class Oracle : SerializedMonoBehaviour
         Loaded = false;
         WipeSaveData();
 
-        if (File.Exists(Application.persistentDataPath + "/" + fileName + ".idsOdin"))
+        if (File.Exists(Application.persistentDataPath + "/" + fileName + saveExtension))
         {
-            LoadState(Application.persistentDataPath + "/" + fileName + ".idsOdin");
+            LoadState(Application.persistentDataPath + "/" + fileName + saveExtension);
         }
 
         else
@@ -208,7 +212,52 @@ public class Oracle : SerializedMonoBehaviour
         public string dateQuitString;
         public NumberTypes notation;
 
+        public Level1 level1;
     }
+
+    [Serializable]
+    public class Level
+    {
+        public bool unlocked = false;
+        public TimeSpan timeSpentInLevel;
+    }
+    [Serializable]
+    public class Level1 : Level
+    {
+        public double cash = 0;
+        public Level1Lures currentLure = Level1Lures.First;
+
+        public float tuna;
+        public float salmon;
+        public float herring;
+        public float sardines;
+        public float trout;
+        public float halibut;
+        public float flounder;
+        public float cod;
+        public float anchovies;
+        public float shrimp;
+
+        public float boot;
+        public float can;
+        public float tyre;
+        public float plasticBottle;
+        public float plant;
+    }
+    
+    #region Enums
+    
+    public enum Level1Lures
+    {
+        First = 40,
+        Second = 35,
+        Third = 30,
+        Fourth = 20,
+        Fifth = 10,
+        Sixth = 5
+    }
+    
+    #endregion
 
 
     #region Singleton class: Oracle

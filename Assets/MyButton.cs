@@ -10,14 +10,14 @@ public class MyButton : Button
         {
             ProceduralImage img = GetComponentInChildren<ProceduralImage>();
             var color = img.color;
-            color.a = 0.7f;
+            color.a = 1f;
             img.color = color;
         }
         else if (state == SelectionState.Normal)
         {
             ProceduralImage img = GetComponentInChildren<ProceduralImage>();
             var color = img.color;
-            color.a = 1;
+            color.a = 0.7f;
             img.color = color;
         }
     }
