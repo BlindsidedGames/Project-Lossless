@@ -747,6 +747,7 @@ MonoBehaviour:
     idleDysonSwarm: 
   gotNews: 0
   saveData:
+    buildNumber: 1
     dateStarted: 
     dateQuitString: 
     notation: 0

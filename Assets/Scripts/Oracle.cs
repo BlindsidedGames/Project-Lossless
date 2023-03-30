@@ -13,6 +13,7 @@ public class Oracle : SerializedMonoBehaviour
 {
     private readonly string fileName = "betaTestTwo";
     private readonly string saveExtension = "beta";
+    [SerializeField] public BuildNumberChecker buildNumber;
 
     //public List<int> skillAutoAssignmentList = new();
     public bool Loaded;
@@ -128,6 +129,7 @@ public class Oracle : SerializedMonoBehaviour
     public void Save()
     {
         saveData.dateQuitString = DateTime.UtcNow.ToString(CultureInfo.InvariantCulture);
+        saveData.buildNumber = buildNumber;
         SaveState(Application.persistentDataPath + "/" + fileName + saveExtension);
     }
 
@@ -211,11 +213,18 @@ public class Oracle : SerializedMonoBehaviour
     [Serializable]
     public class SaveData
     {
+        public BuildNumberChecker buildNumber;
         public string dateStarted;
         public string dateQuitString;
         public NumberTypes notation;
 
         public Level1 level1 = new();
+    }
+
+    [Serializable]
+    public class BuildNumberChecker
+    {
+        public int buildNumber;
     }
 
     [Serializable]
