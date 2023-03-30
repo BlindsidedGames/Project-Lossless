@@ -4,20 +4,22 @@ using UnityEngine.UI.ProceduralImage;
 
 public class MyButton : Button
 {
+    public bool invertInteractableColor;
+
     protected override void DoStateTransition(SelectionState state, bool instant)
     {
         if (state == SelectionState.Disabled)
         {
-            ProceduralImage img = GetComponentInChildren<ProceduralImage>();
+            var img = GetComponentInChildren<ProceduralImage>();
             var color = img.color;
-            color.a = 1f;
+            color.a = invertInteractableColor ? 0.7f : 1f;
             img.color = color;
         }
         else if (state == SelectionState.Normal)
         {
-            ProceduralImage img = GetComponentInChildren<ProceduralImage>();
+            var img = GetComponentInChildren<ProceduralImage>();
             var color = img.color;
-            color.a = 0.7f;
+            color.a = invertInteractableColor ? 1f : 0.7f;
             img.color = color;
         }
     }

@@ -1,22 +1,35 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using static Oracle;
+using Random = UnityEngine.Random;
 
 public class Level1Manager : MonoBehaviour
 {
     private Level1 saveData => oracle.saveData.level1;
 
     [SerializeField] private Slider castBar;
-    
+    [SerializeField] private MyButton lurePurchaseButton;
+    [SerializeField] private Image lurePurchaseImage;
+    [SerializeField] private TMP_Text lurePurchaseCost;
+
     private float castTime;
-    private float lure1CastTime = 5;
-    private float lure23CastTime = 4;
-    private float lure4CastTime = 3;
-    private float lure5CastTime = 2;
-    private float lure6CastTime = 1;
-    void Update()
+
+    private void Start()
+    {
+        lurePurchaseImage.sprite = GetLureType((int)saveData.currentLure + 1).lureImage;
+        lurePurchaseCost.text = $"${CalcUtils.FormatNumber(GetLureType((int)saveData.currentLure + 1).lureCost)}";
+        lurePurchaseButton.onClick.AddListener(PurchaseLure);
+    }
+
+    private void PurchaseLure()
+    {
+    }
+
+    private void Update()
     {
         CastBar();
     }
@@ -24,28 +37,9 @@ public class Level1Manager : MonoBehaviour
     private void CastBar()
     {
         castTime += Time.deltaTime;
-        var castTimeMax = 0f;
-        switch (saveData.currentLure)
-        {
-            case Level1Lures.First:
-                castTimeMax = lure1CastTime;
-                break;
-            case Level1Lures.Second:
-                castTimeMax = lure23CastTime;
-                break;
-            case Level1Lures.Third:
-                castTimeMax = lure23CastTime;
-                break;
-            case Level1Lures.Fourth:
-                castTimeMax = lure4CastTime;
-                break;
-            case Level1Lures.Fifth:
-                castTimeMax = lure5CastTime;
-                break;
-            case Level1Lures.Sixth:
-                castTimeMax = lure6CastTime;
-                break;
-        }
+        var castTimeMax = GetLureType((int)saveData.currentLure).lureCastTime;
+
+
         SetProgressBar(castTimeMax);
         if (castTime >= castTimeMax)
         {
@@ -54,11 +48,39 @@ public class Level1Manager : MonoBehaviour
         }
     }
 
+    private Level1Data.Lure GetLureType(int lure)
+    {
+        var lureData = new Level1Data.Lure();
+        switch (lure)
+        {
+            case 1:
+                lureData = oracle.level1Data.lure1;
+                break;
+            case 2:
+                lureData = oracle.level1Data.lure2;
+                break;
+            case 3:
+                lureData = oracle.level1Data.lure3;
+                break;
+            case 4:
+                lureData = oracle.level1Data.lure4;
+                break;
+            case 5:
+                lureData = oracle.level1Data.lure5;
+                break;
+            case 6:
+                lureData = oracle.level1Data.lure6;
+                break;
+        }
+
+        return lureData;
+    }
+
     private void SetProgressBar(float currentCastTime)
     {
-        castBar.value =  castTime/currentCastTime ;
+        castBar.value = castTime / currentCastTime;
     }
-    
+
     private void Catch()
     {
         Roll((int)saveData.currentLure);
@@ -68,7 +90,7 @@ public class Level1Manager : MonoBehaviour
 
     private void RollJunk()
     {
-        var random = Random.Range(1,6);
+        var random = Random.Range(1, 6);
         switch (random)
         {
             case 1:
@@ -91,7 +113,7 @@ public class Level1Manager : MonoBehaviour
 
     private void RollFish()
     {
-        var random = Random.Range(1,12-(int)saveData.currentLure/5);
+        var random = Random.Range(1, 12 - GetLureType((int)saveData.currentLure).junkChance / 5);
         switch (random)
         {
             case 1:
@@ -144,7 +166,7 @@ public class Level1Manager : MonoBehaviour
     {
         switch (FishOrJunk(junkChance))
         {
-            case true :
+            case true:
                 RollJunk();
                 break;
             default:

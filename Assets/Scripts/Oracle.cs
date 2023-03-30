@@ -7,11 +7,10 @@ using UnityEngine.Networking;
 using Sirenix.Serialization;
 using Sirenix.OdinInspector;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class Oracle : SerializedMonoBehaviour
 {
-   
-
     private readonly string fileName = "betaTestTwo";
     private readonly string saveExtension = "beta";
 
@@ -118,10 +117,10 @@ public class Oracle : SerializedMonoBehaviour
     [ContextMenu("WipeSaveData")]
     public void WipeSaveData()
     {
-        saveData = new SaveData()
-        {
-            level1 = new Level1()
-        };
+        saveData = new SaveData();
+        /*{
+            //level1 = new Level1()
+        };*/
     }
 
 
@@ -163,7 +162,7 @@ public class Oracle : SerializedMonoBehaviour
         saveData = SerializationUtility.DeserializeValue<SaveData>(bytes, DataFormat.JSON);
         Loaded = true;
     }
-    
+
 
     /*private void AwayForSeconds()
     {
@@ -178,7 +177,91 @@ public class Oracle : SerializedMonoBehaviour
     }*/
 
     #endregion
+
     #endregion
+
+    #region LevelData
+
+    public Level1Data level1Data;
+
+    [Serializable]
+    public class Level1Data
+    {
+        public Lure lure1 = new();
+        public Lure lure2 = new();
+        public Lure lure3 = new();
+        public Lure lure4 = new();
+        public Lure lure5 = new();
+        public Lure lure6 = new();
+
+        [Serializable]
+        public class Lure
+        {
+            public int junkChance;
+            public float lureCastTime;
+            public double lureCost;
+            public Sprite lureImage;
+        }
+    }
+
+    #endregion
+
+    #region SaveData
+
+    [Serializable]
+    public class SaveData
+    {
+        public string dateStarted;
+        public string dateQuitString;
+        public NumberTypes notation;
+
+        public Level1 level1 = new();
+    }
+
+    [Serializable]
+    public class Level
+    {
+        public bool unlocked;
+        public TimeSpan timeSpentInLevel;
+    }
+
+    [Serializable]
+    public class Level1 : Level
+    {
+        public double cash;
+        public Level1Lures currentLure = Level1Lures.First;
+
+        public float tuna;
+        public float salmon;
+        public float herring;
+        public float sardines;
+        public float trout;
+        public float halibut;
+        public float flounder;
+        public float cod;
+        public float anchovies;
+        public float shrimp;
+
+        public float boot;
+        public float can;
+        public float tyre;
+        public float plasticBottle;
+        public float plant;
+    }
+
+    #endregion
+
+    #region Enums
+
+    public enum Level1Lures
+    {
+        First = 1,
+        Second = 2,
+        Third = 3,
+        Fourth = 4,
+        Fifth = 5,
+        Sixth = 6
+    }
 
     public enum BuyMode
     {
@@ -205,58 +288,6 @@ public class Oracle : SerializedMonoBehaviour
         Engineering
     }
 
-    [Serializable]
-    public class SaveData
-    {
-        public string dateStarted;
-        public string dateQuitString;
-        public NumberTypes notation;
-
-        public Level1 level1;
-    }
-
-    [Serializable]
-    public class Level
-    {
-        public bool unlocked = false;
-        public TimeSpan timeSpentInLevel;
-    }
-    [Serializable]
-    public class Level1 : Level
-    {
-        public double cash = 0;
-        public Level1Lures currentLure = Level1Lures.First;
-
-        public float tuna;
-        public float salmon;
-        public float herring;
-        public float sardines;
-        public float trout;
-        public float halibut;
-        public float flounder;
-        public float cod;
-        public float anchovies;
-        public float shrimp;
-
-        public float boot;
-        public float can;
-        public float tyre;
-        public float plasticBottle;
-        public float plant;
-    }
-    
-    #region Enums
-    
-    public enum Level1Lures
-    {
-        First = 40,
-        Second = 35,
-        Third = 30,
-        Fourth = 20,
-        Fifth = 10,
-        Sixth = 5
-    }
-    
     #endregion
 
 

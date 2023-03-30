@@ -753,7 +753,7 @@ MonoBehaviour:
     level1:
       unlocked: 0
       cash: 0
-      currentLure: 40
+      currentLure: 1
       tuna: 0
       salmon: 0
       herring: 0
@@ -769,6 +769,37 @@ MonoBehaviour:
       tyre: 0
       plasticBottle: 0
       plant: 0
+  level1Data:
+    lure1:
+      junkChance: 40
+      lureCastTime: 5
+      lureCost: 0
+      lureImage: {fileID: 21300000, guid: 359a45a5183de7e46933f52f7296c841, type: 3}
+    lure2:
+      junkChance: 35
+      lureCastTime: 4
+      lureCost: 100
+      lureImage: {fileID: 21300000, guid: 307260e91de3ee34db0827363145715c, type: 3}
+    lure3:
+      junkChance: 30
+      lureCastTime: 4
+      lureCost: 1000
+      lureImage: {fileID: 21300000, guid: 5c70a5cc1fd8b324ab040223711fb501, type: 3}
+    lure4:
+      junkChance: 20
+      lureCastTime: 3
+      lureCost: 5000
+      lureImage: {fileID: 21300000, guid: 7cef28f5199f91e46b3295f69ed4d124, type: 3}
+    lure5:
+      junkChance: 10
+      lureCastTime: 2
+      lureCost: 15000
+      lureImage: {fileID: 21300000, guid: 4604385e056967846a86d199776d2c51, type: 3}
+    lure6:
+      junkChance: 5
+      lureCastTime: 1
+      lureCost: 42000
+      lureImage: {fileID: 21300000, guid: 865c423fc6c2dfd4d9845c6565c4293c, type: 3}
 --- !u!1001 &913408024
 PrefabInstance:
   m_ObjectHideFlags: 0
