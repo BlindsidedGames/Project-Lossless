@@ -737,6 +737,8 @@ MonoBehaviour:
     PrefabModificationsReferencedUnityObjects: []
     PrefabModifications: []
     SerializationNodes: []
+  buildNumber:
+    buildNumber: 55
   Loaded: 0
   bsGamesData:
     latestGameName: 
@@ -747,7 +749,8 @@ MonoBehaviour:
     idleDysonSwarm: 
   gotNews: 0
   saveData:
-    buildNumber: 1
+    buildNumber:
+      buildNumber: 0
     dateStarted: 
     dateQuitString: 
     notation: 0
