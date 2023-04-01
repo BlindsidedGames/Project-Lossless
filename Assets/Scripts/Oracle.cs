@@ -230,8 +230,8 @@ public class Oracle : SerializedMonoBehaviour
     [Serializable]
     public class Level
     {
-        public bool unlocked;
-        public TimeSpan timeSpentInLevel;
+        public bool complete;
+        public float timeSpentInLevel;
     }
 
     [Serializable]
