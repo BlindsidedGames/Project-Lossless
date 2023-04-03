@@ -146,7 +146,7 @@ public class Level1Manager : MonoBehaviour
 
     private void Catch()
     {
-        Roll((int)saveData.currentLure);
+        Roll(GetLureType((int)saveData.currentLure + 1).junkChance);
     }
 
     #region Rolling
